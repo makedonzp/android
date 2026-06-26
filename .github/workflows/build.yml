@@ -23,6 +23,11 @@ jobs:
       - name: Setup EAS CLI
         run: npm install -g eas-cli
 
+      - name: Check EXPO_TOKEN
+        run: echo "EXPO_TOKEN is ${#EXPO_TOKEN} characters long"
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+
       - name: Build Android (development)
         run:
           eas build --platform android --profile development --non-interactive
