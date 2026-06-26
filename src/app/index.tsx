@@ -9,16 +9,21 @@ import {
   Platform,
 } from "react-native";
 import { useTelemetry } from "../hooks/useTelemetry";
-import { useBluetooth } from "../hooks/useBluetooth";
 import TelemetryPanel from "../components/TelemetryPanel";
 import CustomJoystick from "../components/Joystick";
 
 export default function Index() {
   const telemetry = useTelemetry();
-  // Используем хук только если не Web
-  const bluetooth = useBluetooth();
-  const { isConnected, devices, connect, disconnect, sendCommand } = bluetooth;
   const [nightMode, setNightMode] = useState(false);
+
+  // Заглушка для Bluetooth (пока отключено)
+  const isConnected = false;
+  const devices: any[] = [];
+  const connect = (_mac: string) => {}; // принимает параметр, но ничего не делает
+  const disconnect = () => {};
+  const sendCommand = (command: string) => {
+    console.log("⚠️ Bluetooth отключён, команда не отправлена:", command);
+  };
 
   // Ночной режим
   useEffect(() => {
