@@ -24,7 +24,13 @@ jobs:
         run: npm install -g eas-cli
 
       - name: Check EXPO_TOKEN
-        run: echo "EXPO_TOKEN is ${#EXPO_TOKEN} characters long"
+        run: |
+          if [ -z "$EXPO_TOKEN" ]; then
+            echo "❌ EXPO_TOKEN is empty or not set"
+            exit 1
+          else
+            echo "✅ EXPO_TOKEN is set (length: ${#EXPO_TOKEN})"
+          fi
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
 
